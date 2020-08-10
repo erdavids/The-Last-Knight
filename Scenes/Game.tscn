@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/VT323 (2)/VT323-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/Knight.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/King.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/progress-bar.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Progress.gd" type="Script" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 42
+font_data = ExtResource( 2 )
+
+[node name="Game" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -1028.99
+margin_top = 241.311
+margin_right = -68.9906
+margin_bottom = 881.311
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Node2D" parent="."]
+position = Vector2( 480, 320 )
+z_as_relative = false
+script = ExtResource( 1 )
+
+[node name="Knight" parent="Level" instance=ExtResource( 3 )]
+z_index = 4
+
+[node name="King" parent="Level" instance=ExtResource( 4 )]
+
+[node name="Level-Text" type="Label" parent="Level"]
+margin_left = -247.939
+margin_top = -300.0
+margin_right = -127.939
+margin_bottom = -257.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "LEVEL 1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Moves" type="Label" parent="Level"]
+margin_left = 132.614
+margin_top = -300.0
+margin_right = 252.614
+margin_bottom = -257.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "2 MOVES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Progress" type="Sprite" parent="Level"]
+position = Vector2( 0, 287.362 )
+scale = Vector2( 0.8, 0.5 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="Level/Progress"]
+[connection signal="timeout" from="Level/Progress/Timer" to="Level/Progress" method="timeout"]
